@@ -1,4 +1,5 @@
 const redux = require("redux");
+const produce = require("immer").produce;
 const createStore = redux.createStore;
 
 const initialState = {
@@ -22,13 +23,9 @@ const updateStreet = (newStreet) => {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case STREET_UPDATE:
-      return {
-        ...state,
-        address: {
-          ...state.address,
-          street: action.payload,
-        },
-      };
+      return produce(state, (draft) => {
+        draft.address.street = "Floor 37th";
+      });
 
     default:
       return state;
